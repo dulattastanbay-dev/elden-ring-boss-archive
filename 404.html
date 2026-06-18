@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Lost in the Lands Between</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--gold:#c9a45c;--gold-bright:#e8cf94;--ink:#d9cdb4;--ink-dim:#9c8e74;--bg:#0b0805}
+  html,body{height:100%}
+  body{
+    background:
+      radial-gradient(1100px 560px at 60% -10%, rgba(201,164,92,.10), transparent 60%),
+      radial-gradient(800px 500px at 50% 120%, rgba(60,44,20,.5), transparent 65%),
+      var(--bg);
+    color:var(--ink);font-family:"EB Garamond",Georgia,serif;
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:32px;
+    -webkit-font-smoothing:antialiased;position:relative;overflow:hidden}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;box-shadow:inset 0 0 180px 40px rgba(0,0,0,.85)}
+  .wrap{position:relative;z-index:1;max-width:620px}
+  .eyebrow{font-family:"Cinzel",serif;letter-spacing:.42em;font-size:12px;color:var(--ink-dim);text-transform:uppercase;margin-bottom:22px}
+  .code{font-family:"Cinzel",serif;font-weight:700;font-size:clamp(80px,20vw,170px);line-height:.9;
+    color:#f2e7cd;text-shadow:0 6px 40px rgba(0,0,0,.7),0 0 60px rgba(201,164,92,.18)}
+  h1{font-family:"EB Garamond",serif;font-style:italic;font-weight:500;
+    font-size:clamp(24px,4vw,38px);color:var(--gold);margin-top:6px}
+  p{margin:18px auto 0;max-width:42ch;font-size:18px;color:var(--ink-dim);font-style:italic;line-height:1.6}
+  .flourish{display:flex;align-items:center;gap:14px;color:var(--gold);margin:30px auto 0;max-width:340px}
+  .flourish::before,.flourish::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(201,164,92,.4),transparent)}
+  .flourish .dot{width:6px;height:6px;border:1px solid var(--gold);transform:rotate(45deg);flex:none}
+  a.home{display:inline-flex;align-items:center;gap:12px;margin-top:34px;padding:15px 30px;
+    font-family:"Cinzel",serif;font-weight:600;letter-spacing:.1em;font-size:15px;color:#2a1d09;
+    background:linear-gradient(180deg,#e6cd8e,#bf9847 55%,#a07d35);border:1px solid #f0dca0;border-radius:3px;
+    text-decoration:none;box-shadow:0 12px 30px -12px rgba(201,164,92,.7),inset 0 1px 0 rgba(255,255,255,.4);
+    transition:transform .2s,box-shadow .2s}
+  a.home:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(201,164,92,.9),inset 0 1px 0 rgba(255,255,255,.5)}
+  a.home svg{width:18px;height:18px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">The Lands Between</div>
+    <div class="code">404</div>
+    <h1>This path leads nowhere, Tarnished</h1>
+    <p>The page you seek has faded beyond the fog — uncharted, or lost to the shattering.</p>
+    <div class="flourish"><span class="dot"></span></div>
+    <a class="home" id="home" href="/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg>
+      Return to Grace
+    </a>
+  </div>
+  <script>
+    // Resolve the home link for GitHub Project Pages (/REPO/) vs user/root or local.
+    (function(){
+      var seg = location.pathname.split('/')[1] || '';
+      var isProject = location.hostname.endsWith('github.io') && seg;
+      document.getElementById('home').href = location.origin + (isProject ? '/' + seg + '/' : '/');
+    })();
+  </script>
+</body>
+</html>

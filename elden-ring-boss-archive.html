@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elden Ring — Boss Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0805;
+    --bg-2:#120d08;
+    --bg-3:#171009;
+    --panel:#1b130b;
+    --line:rgba(201,164,92,.20);
+    --line-soft:rgba(201,164,92,.10);
+    --gold:#c9a45c;
+    --gold-bright:#e8cf94;
+    --gold-dim:#8c7642;
+    --ink:#d9cdb4;
+    --ink-dim:#9c8e74;
+    --ink-faint:#6f6450;
+    --easy:#7a9a6e;
+    --medium:#c9a45c;
+    --hard:#b1463f;
+    --extreme:#7c5fa6;
+    --shadow:0 20px 50px -20px rgba(0,0,0,.9);
+    --serif:"EB Garamond",Georgia,serif;
+    --display:"Cinzel",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 70% -5%, rgba(201,164,92,.06), transparent 60%),
+      radial-gradient(900px 500px at 10% 110%, rgba(201,164,92,.04), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:17px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+  ::selection{background:rgba(201,164,92,.3);color:#fff}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;color:inherit;background:none;border:none}
+  .wrap{max-width:1480px;margin:0 auto;padding:0 32px}
+
+  .flourish{display:flex;align-items:center;gap:14px;color:var(--gold-dim)}
+  .flourish::before,.flourish::after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--line),transparent)}
+  .flourish .dot{width:5px;height:5px;border:1px solid var(--gold);transform:rotate(45deg);flex:none}
+
+  header{position:sticky;top:0;z-index:40;backdrop-filter:blur(10px);
+    background:linear-gradient(180deg, rgba(11,8,5,.96), rgba(11,8,5,.78));
+    border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:16px}
+  .crest{width:46px;height:46px;flex:none;color:var(--gold)}
+  .brand h1{font-family:var(--display);font-weight:700;letter-spacing:.16em;
+    font-size:26px;line-height:1;color:var(--gold-bright);text-shadow:0 0 24px rgba(201,164,92,.25)}
+  .brand .sub{font-family:var(--display);font-size:12px;letter-spacing:.42em;color:var(--gold-dim);margin-top:5px}
+  nav.menu{display:flex;gap:8px}
+  nav.menu button{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;
+    padding:8px 16px;color:var(--ink-dim);font-family:var(--display);font-size:13px;letter-spacing:.12em;
+    transition:color .25s}
+  nav.menu button svg{width:20px;height:20px;opacity:.8;transition:opacity .25s}
+  nav.menu button:hover,nav.menu button.active{color:var(--gold-bright)}
+  nav.menu button:hover svg,nav.menu button.active svg{opacity:1}
+  nav.menu button.active::after{content:"";position:absolute;bottom:-15px;left:18%;right:18%;height:2px;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  nav.menu .badge{position:absolute;top:0;right:6px;min-width:18px;height:18px;padding:0 4px;
+    background:var(--gold);color:#1a1208;font-family:var(--serif);font-size:11px;font-weight:600;
+    border-radius:9px;display:grid;place-items:center;line-height:1;opacity:0;transform:scale(.6);transition:.25s}
+  nav.menu .badge.show{opacity:1;transform:scale(1)}
+
+  .hero{position:relative;padding:56px 0 44px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:center;position:relative;z-index:2}
+  .eyebrow{font-family:var(--display);letter-spacing:.4em;font-size:12px;color:var(--gold-dim);margin-bottom:22px}
+  .hero h2{font-family:var(--display);font-weight:600;line-height:1.05;letter-spacing:.02em;
+    font-size:clamp(40px,5.4vw,72px);color:#f2e7cd;text-shadow:0 4px 30px rgba(0,0,0,.7)}
+  .hero h2 .accent{display:block;color:var(--gold);font-style:italic;font-family:var(--serif);
+    font-weight:500;font-size:clamp(30px,4.2vw,56px);margin-top:6px}
+  .hero p.lede{margin:22px 0 30px;max-width:30ch;font-size:19px;color:var(--ink-dim);font-style:italic}
+  .btn-primary{display:inline-flex;align-items:center;gap:12px;padding:15px 30px;
+    font-family:var(--display);font-weight:600;letter-spacing:.1em;font-size:15px;color:#2a1d09;
+    background:linear-gradient(180deg,#e6cd8e,#bf9847 55%,#a07d35);
+    border:1px solid #f0dca0;border-radius:3px;
+    box-shadow:0 12px 30px -12px rgba(201,164,92,.7),inset 0 1px 0 rgba(255,255,255,.4);
+    transition:transform .2s,box-shadow .2s}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -14px rgba(201,164,92,.9),inset 0 1px 0 rgba(255,255,255,.5)}
+  .btn-primary svg{width:18px;height:18px}
+
+  .hero-art{position:relative;height:360px;border:1px solid var(--line);border-radius:6px;overflow:hidden;
+    box-shadow:var(--shadow)}
+  .hero-art .scene{position:absolute;inset:0;
+    background:
+      radial-gradient(120% 90% at 60% 18%, rgba(232,207,148,.55), rgba(201,164,92,.16) 32%, transparent 60%),
+      radial-gradient(80% 120% at 50% 120%, rgba(60,44,20,.8), transparent 70%),
+      linear-gradient(180deg,#2a2013,#0c0905)}
+  .hero-art .silhouette{position:absolute;left:50%;bottom:-6%;transform:translateX(-50%);height:96%;opacity:.92;color:#0a0703}
+  .hero-art .grain{position:absolute;inset:0;opacity:.5;mix-blend-mode:overlay;pointer-events:none}
+  .hero-art .vig{position:absolute;inset:0;box-shadow:inset 0 0 120px 30px rgba(0,0,0,.85)}
+
+  .stats{position:absolute;top:30px;right:0;z-index:5;width:260px;
+    background:linear-gradient(180deg,rgba(27,19,11,.96),rgba(15,11,6,.96));
+    border:1px solid var(--line);border-radius:6px;padding:22px;box-shadow:var(--shadow)}
+  .stats::before,.stats::after{content:"";position:absolute;width:14px;height:14px;border:1px solid var(--gold);opacity:.6}
+  .stats::before{top:7px;left:7px;border-right:0;border-bottom:0}
+  .stats::after{bottom:7px;right:7px;border-left:0;border-top:0}
+  .stat{display:flex;align-items:center;gap:16px;padding:12px 0}
+  .stat+.stat{border-top:1px solid var(--line-soft)}
+  .stat .ic{width:42px;height:42px;flex:none;border:1px solid var(--line);border-radius:50%;
+    display:grid;place-items:center;color:var(--gold)}
+  .stat .ic svg{width:22px;height:22px}
+  .stat .lbl{font-family:var(--display);letter-spacing:.18em;font-size:12px;color:var(--ink-dim);text-transform:uppercase}
+  .stat .num{font-family:var(--display);font-weight:700;font-size:30px;color:var(--gold-bright);line-height:1}
+
+  .controls{display:flex;flex-wrap:wrap;gap:16px;align-items:center;
+    background:linear-gradient(180deg,rgba(23,16,9,.7),rgba(15,11,6,.7));
+    border:1px solid var(--line);border-radius:6px;padding:16px}
+  .field{position:relative;display:flex;align-items:center}
+  .field svg.lead{position:absolute;left:14px;width:18px;height:18px;color:var(--gold-dim);pointer-events:none}
+  .field input,.field select{font-family:var(--serif);font-size:16px;color:var(--ink);
+    background:rgba(8,6,3,.6);border:1px solid var(--line);border-radius:4px;
+    padding:12px 14px 12px 42px;height:48px;outline:none;transition:border-color .2s,box-shadow .2s}
+  .field input:focus,.field select:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,164,92,.12)}
+  .field.search{flex:1 1 280px}
+  .field.search input{width:100%}
+  .field select{appearance:none;cursor:pointer;padding-right:40px}
+  .field select option{background:#120d08;color:var(--ink)}
+  .field .chev{position:absolute;right:14px;width:14px;height:14px;color:var(--gold-dim);pointer-events:none}
+  .field.sel{flex:0 1 210px}
+
+  .toggle{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .switch{position:relative;width:54px;height:28px;border-radius:14px;border:1px solid var(--line);
+    background:rgba(8,6,3,.7);transition:background .25s}
+  .switch .knob{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;
+    background:linear-gradient(180deg,#e6cd8e,#bf9847);box-shadow:0 2px 6px rgba(0,0,0,.6);
+    transition:left .25s}
+  .switch[data-on="dlc"]{background:rgba(124,95,166,.25);border-color:rgba(124,95,166,.5)}
+  .switch[data-on="dlc"] .knob{left:30px;background:linear-gradient(180deg,#b69fd4,#7c5fa6)}
+  .toggle .tlabel{font-family:var(--display);font-size:13px;letter-spacing:.12em}
+  .toggle .tlabel.on{color:var(--gold-bright)}
+  .toggle .tlabel.off{color:var(--ink-faint)}
+
+  .content{display:grid;grid-template-columns:1fr 330px;gap:28px;padding:34px 0 60px;align-items:start}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .empty{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--ink-faint);font-style:italic;font-size:19px}
+
+  .card{background:var(--bg-3);border:1px solid var(--line);border-radius:6px;overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .25s,border-color .25s,box-shadow .25s;position:relative}
+  .card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 24px 50px -24px rgba(0,0,0,.95),0 0 30px -14px rgba(201,164,92,.4)}
+  .card.done::after{content:"";position:absolute;inset:0;background:rgba(8,6,3,.4);pointer-events:none}
+  .card .done-mark{position:absolute;top:10px;left:10px;z-index:3;width:30px;height:30px;border-radius:50%;
+    background:linear-gradient(180deg,#e6cd8e,#bf9847);display:none;place-items:center;color:#1a1208;
+    box-shadow:0 4px 12px rgba(0,0,0,.6)}
+  .card.done .done-mark{display:grid}
+  .card .done-mark svg{width:16px;height:16px}
+
+  .art{position:relative;height:150px;overflow:hidden}
+  .art .glow{position:absolute;inset:0;
+    background:
+      radial-gradient(95% 85% at 50% 22%, var(--g1), transparent 62%),
+      radial-gradient(140% 120% at 50% 120%, rgba(0,0,0,.85), transparent 70%),
+      linear-gradient(180deg,#1c150c,#0a0704)}
+  .art .sigil{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:118px;height:118px;
+    color:var(--g2);opacity:.5;transition:transform .5s}
+  .card:hover .art .sigil{transform:translate(-50%,-50%) rotate(90deg)}
+  .art .initial{position:absolute;top:50%;left:50%;transform:translate(-50%,-54%);
+    font-family:var(--display);font-weight:700;font-size:54px;color:#f2e7cd;text-shadow:0 4px 18px rgba(0,0,0,.8);opacity:.96}
+  .art .grain{position:absolute;inset:0;opacity:.4;mix-blend-mode:overlay;pointer-events:none}
+  .art .req{position:absolute;top:10px;right:10px;z-index:2;color:var(--gold);opacity:.9}
+  .art .req svg{width:20px;height:20px;filter:drop-shadow(0 0 6px rgba(201,164,92,.7))}
+
+  .card .body{padding:16px 16px 0;flex:1}
+  .card h3{font-family:var(--display);font-weight:600;font-size:18px;color:#efe3c8;line-height:1.2}
+  .card .meta{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:8px}
+  .card .loc{display:flex;align-items:center;gap:6px;color:var(--ink-dim);font-size:14.5px;font-style:italic}
+  .card .loc svg{width:13px;height:13px;flex:none;color:var(--gold-dim)}
+  .tag{font-family:var(--display);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:4px 10px;border-radius:3px;border:1px solid;white-space:nowrap;flex:none}
+  .tag.easy{color:var(--easy);border-color:rgba(122,154,110,.5);background:rgba(122,154,110,.1)}
+  .tag.medium{color:var(--medium);border-color:rgba(201,164,92,.5);background:rgba(201,164,92,.1)}
+  .tag.hard{color:#d98a83;border-color:rgba(177,70,63,.6);background:rgba(177,70,63,.16)}
+  .tag.extreme{color:#b69fd4;border-color:rgba(124,95,166,.6);background:rgba(124,95,166,.16)}
+  .card .view{margin:14px;padding:11px;border:1px solid var(--line);border-radius:4px;
+    font-family:var(--display);font-size:13px;letter-spacing:.1em;color:var(--gold);
+    background:linear-gradient(180deg,rgba(201,164,92,.08),rgba(201,164,92,.02));
+    display:flex;align-items:center;justify-content:center;gap:8px;transition:.2s}
+  .card .view svg{width:13px;height:13px;transition:transform .2s}
+  .card:hover .view{background:linear-gradient(180deg,rgba(201,164,92,.2),rgba(201,164,92,.06));color:var(--gold-bright)}
+  .card:hover .view svg{transform:translateX(4px)}
+
+  .botd{background:linear-gradient(180deg,rgba(23,16,9,.9),rgba(13,9,5,.9));
+    border:1px solid var(--line);border-radius:6px;overflow:hidden;position:sticky;top:96px;box-shadow:var(--shadow)}
+  .botd .cap{text-align:center;font-family:var(--display);letter-spacing:.36em;font-size:12px;color:var(--gold);padding:16px 0 8px}
+  .botd .capline{margin:0 22px}
+  .botd .art{height:240px;margin:14px}
+  .botd .info{padding:4px 22px 24px;text-align:center}
+  .botd .info h3{font-family:var(--display);font-weight:600;font-size:24px;color:#efe3c8}
+  .botd .info .row{margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;color:var(--ink-dim)}
+  .botd .info .star{color:var(--gold)}
+  .botd .info .dlabel{font-family:var(--display);font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+  .botd .reveal{margin:0 22px 22px;padding:11px;width:calc(100% - 44px);border:1px solid var(--line);border-radius:4px;
+    font-family:var(--display);font-size:13px;letter-spacing:.1em;color:var(--gold);
+    background:linear-gradient(180deg,rgba(201,164,92,.1),rgba(201,164,92,.03));transition:.2s}
+  .botd .reveal:hover{background:linear-gradient(180deg,rgba(201,164,92,.22),rgba(201,164,92,.07));color:var(--gold-bright)}
+
+  footer{border-top:1px solid var(--line);padding:26px 0 34px}
+  footer .flourish{font-family:var(--display);letter-spacing:.3em;font-size:12px;color:var(--ink-faint)}
+
+  .overlay{position:fixed;inset:0;z-index:80;background:rgba(4,3,1,.82);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;padding:24px}
+  .overlay.open{display:flex}
+  .modal{width:min(720px,100%);max-height:90vh;overflow:auto;background:linear-gradient(180deg,#1a130b,#100b06);
+    border:1px solid var(--line);border-radius:8px;box-shadow:0 40px 90px -30px #000;position:relative}
+  .modal .mhead{position:relative;height:200px;overflow:hidden;border-bottom:1px solid var(--line)}
+  .modal .mhead .art{height:200px}
+  .modal .mhead .titlebar{position:absolute;left:0;right:0;bottom:0;padding:22px 28px;
+    background:linear-gradient(0deg,rgba(8,6,3,.96),transparent)}
+  .modal .mhead h3{font-family:var(--display);font-weight:700;font-size:30px;color:#f2e7cd}
+  .modal .mhead .sub{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px;align-items:center;color:var(--ink-dim);font-style:italic}
+  .modal .mhead .sub svg{width:14px;height:14px;color:var(--gold-dim);vertical-align:-2px;margin-right:5px}
+  .mclose{position:absolute;top:14px;right:14px;z-index:5;width:40px;height:40px;border-radius:50%;
+    border:1px solid var(--line);background:rgba(8,6,3,.7);color:var(--gold);display:grid;place-items:center;transition:.2s}
+  .mclose:hover{border-color:var(--gold);background:rgba(201,164,92,.15)}
+  .mclose svg{width:18px;height:18px}
+  .mbody{padding:26px 28px 28px}
+  .mbody .lore{font-size:18px;font-style:italic;color:var(--ink);line-height:1.6;padding-left:16px;border-left:2px solid var(--line)}
+  .msect{margin-top:24px}
+  .msect .h{display:flex;align-items:center;gap:10px;font-family:var(--display);letter-spacing:.16em;
+    font-size:12px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .msect .h svg{width:16px;height:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{padding:7px 13px;border:1px solid var(--line);border-radius:3px;font-size:14.5px;color:var(--ink);background:rgba(201,164,92,.05)}
+  .rewards{list-style:none;display:grid;gap:8px}
+  .rewards li{display:flex;gap:10px;align-items:flex-start;font-size:16px;color:var(--ink)}
+  .rewards li svg{width:15px;height:15px;color:var(--gold);flex:none;margin-top:4px}
+  .mfoot{margin-top:26px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .mark-btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:4px;
+    font-family:var(--display);font-size:14px;letter-spacing:.08em;border:1px solid var(--gold);
+    color:#2a1d09;background:linear-gradient(180deg,#e6cd8e,#bf9847);transition:.2s}
+  .mark-btn.is-done{background:transparent;color:var(--gold);border-color:var(--line)}
+  .mark-btn svg{width:16px;height:16px}
+  .diffpill{margin-left:auto;font-family:var(--display);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    padding:8px 16px;border-radius:3px;border:1px solid}
+
+  @media (max-width:1100px){
+    .content{grid-template-columns:1fr}
+    .botd{position:static;max-width:420px;margin:0 auto}
+    .grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-art{height:300px}
+    .stats{position:static;width:100%;margin-top:24px;display:flex;gap:0}
+    .stat{flex:1;flex-direction:column;text-align:center;gap:8px}
+    .stat+.stat{border-top:0;border-left:1px solid var(--line-soft)}
+    .brand .sub{letter-spacing:.3em}
+    nav.menu button span{display:none}
+    nav.menu button{padding:8px 10px}
+  }
+  @media (max-width:600px){
+    .wrap{padding:0 18px}
+    .grid{grid-template-columns:1fr}
+    .toggle{margin-left:0;width:100%;justify-content:center}
+    .field.sel{flex:1 1 100%}
+    .brand h1{font-size:20px}
+    .crest{width:38px;height:38px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <svg class="crest" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4">
+        <circle cx="50" cy="50" r="30"/><circle cx="50" cy="50" r="44"/>
+        <path d="M50 6v88M6 50h88M20 20l60 60M80 20L20 80"/>
+        <circle cx="50" cy="50" r="7" fill="currentColor" stroke="none"/>
+      </svg>
+      <div>
+        <h1>ELDEN RING</h1>
+        <div class="sub">BOSS ARCHIVE</div>
+      </div>
+    </div>
+    <nav class="menu" id="menu">
+      <button data-go="top" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg><span>Home</span></button>
+      <button data-go="grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 8a3 3 0 116 0c0 2-3 3-3 3s-3-1-3-3z"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/><circle cx="9" cy="9" r=".6" fill="currentColor"/><circle cx="15" cy="9" r=".6" fill="currentColor"/></svg><span>Bosses</span></button>
+      <button data-go="regions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.7-7-12a7 7 0 0114 0c0 5.3-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Regions</span></button>
+      <button data-go="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 01-12 0zM6 6H3v2a3 3 0 003 3M18 6h3v2a3 3 0 01-3 3"/></svg><span>Progress</span><span class="badge" id="navBadge">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">THE LANDS BETWEEN</div>
+        <h2>Explore the Bosses<span class="accent">of the Lands Between</span></h2>
+        <p class="lede">Discover lore, weaknesses, rewards, and difficulty ratings.</p>
+        <button class="btn-primary" onclick="document.getElementById('grid').scrollIntoView()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 3.5l6 6M9.5 8.5l6 6M3 21l4-1 13-13-3-3L4 17z"/></svg>
+          Explore Bosses
+        </button>
+      </div>
+      <div class="hero-art">
+        <div class="scene"></div>
+        <svg class="silhouette" viewBox="0 0 200 200" fill="currentColor"><path d="M100 18c-9 0-14 7-14 16 0 6 3 11 3 16-8 4-22 7-30 18-5 7-3 16 4 12 6-4 12-9 18-10-6 9-14 16-18 28-3 10 4 14 9 6 6-10 12-19 20-25-3 12-9 22-9 35 0 8 6 10 9 3 4-11 6-23 8-35 2 12 4 24 8 35 3 7 9 5 9-3 0-13-6-23-9-35 8 6 14 15 20 25 5 8 12 4 9-6-4-12-12-19-18-28 6 1 12 6 18 10 7 4 9-5 4-12-8-11-22-14-30-18 0-5 3-10 3-16 0-9-5-16-14-16z"/></svg>
+        <div class="grain" style="background:url(#grain)"></div>
+        <div class="vig"></div>
+      </div>
+    </div>
+    <aside class="stats" id="progress">
+      <div class="stat">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a7 7 0 00-7 7c0 3 2 5 2 7v2h10v-2c0-2 2-4 2-7a7 7 0 00-7-7z"/><circle cx="9.5" cy="10" r="1.2" fill="currentColor"/><circle cx="14.5" cy="10" r="1.2" fill="currentColor"/></svg></div>
+        <div><div class="lbl">Bosses</div><div class="num" id="sBosses">25</div></div>
+      </div>
+      <div class="stat">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l4-2 4 2 4-2 4 2v12zM8 7V4M16 7V4M9 21v-5h6v5"/></svg></div>
+        <div><div class="lbl">Regions</div><div class="num" id="sRegions">8</div></div>
+      </div>
+      <div class="stat">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c2 4-1 5-1 8a4 4 0 008 0c0-5-4-7-4-11-3 1-3 4-3 4M6 13a4 4 0 008 0"/></svg></div>
+        <div><div class="lbl">Defeated</div><div class="num" id="sDefeated">0</div></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="controls" id="regions">
+    <div class="field search">
+      <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="q" type="text" placeholder="Search bosses..." autocomplete="off">
+    </div>
+    <div class="field sel">
+      <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.7-7-12a7 7 0 0114 0c0 5.3-7 12-7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+      <select id="fRegion"><option value="">All Regions</option></select>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="field sel">
+      <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+      <select id="fDiff">
+        <option value="">All Difficulties</option>
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+        <option value="Extreme">Extreme</option>
+      </select>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="toggle">
+      <span class="tlabel on" id="lblMain">Main Game</span>
+      <button class="switch" id="switch" data-on="main" aria-label="Toggle Main Game and DLC"><span class="knob"></span></button>
+      <span class="tlabel off" id="lblDlc">DLC</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="grid" id="grid"></div>
+    <aside class="botd" id="botd"></aside>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="flourish"><span class="dot"></span>Unofficial fan project<span class="dot"></span></div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" id="modal">
+    <button class="mclose" id="mclose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+const THEME = {
+  "Limgrave":            {g1:"rgba(110,150,120,.55)", g2:"#7fae8e", i:0},
+  "Liurnia of the Lakes":{g1:"rgba(95,130,190,.55)",  g2:"#7fa0d6", i:1},
+  "Caelid":              {g1:"rgba(180,70,60,.55)",   g2:"#d98a83", i:2},
+  "Altus Plateau":       {g1:"rgba(200,165,90,.55)",  g2:"#e8cf94", i:3},
+  "Mountaintops":        {g1:"rgba(140,165,190,.5)",  g2:"#aec3d8", i:4},
+  "Crumbling Farum Azula":{g1:"rgba(120,100,150,.55)",g2:"#b3a0d0", i:5},
+  "Haligtree":           {g1:"rgba(190,90,110,.55)",  g2:"#e09fb0", i:6},
+  "Eternal Cities":      {g1:"rgba(95,95,180,.55)",   g2:"#9fa0e0", i:0},
+  "Gravesite Plain":     {g1:"rgba(150,120,80,.5)",   g2:"#cbb085", i:3},
+  "Scadu Altus":         {g1:"rgba(110,140,110,.5)",  g2:"#9fc09f", i:0},
+  "Shadow Keep":         {g1:"rgba(180,80,60,.55)",   g2:"#e09080", i:2},
+  "Abyssal Woods":       {g1:"rgba(160,110,70,.55)",  g2:"#d6a878", i:5},
+  "Jagged Peak":         {g1:"rgba(120,130,160,.5)",  g2:"#a6b3cf", i:4},
+  "Enir-Ilim":           {g1:"rgba(190,150,90,.6)",   g2:"#f0d49a", i:6}
+};
+const SIGILS = [
+  '<path d="M50 8v84M8 50h84M22 22l56 56M78 22L22 78"/><circle cx="50" cy="50" r="26"/><circle cx="50" cy="50" r="40"/>',
+  '<circle cx="50" cy="50" r="38"/><circle cx="50" cy="50" r="22"/><path d="M50 12v18M50 70v18M12 50h18M70 50h18"/>',
+  '<path d="M50 10l34 20v40L50 90 16 70V30z"/><path d="M50 26l20 12v24L50 74 30 62V38z"/>',
+  '<circle cx="50" cy="50" r="40"/><path d="M30 50a20 20 0 0140 0 12 12 0 01-24 0 8 8 0 0116 0"/>',
+  '<path d="M50 8l10 28 28-2-20 20 12 26-30-14-30 14 12-26-20-20 28 2z"/>',
+  '<circle cx="50" cy="50" r="40"/><circle cx="50" cy="50" r="28"/><circle cx="50" cy="50" r="14"/><path d="M50 6v88"/>',
+  '<path d="M50 10c14 14 14 26 0 40-14-14-14-26 0-40z"/><path d="M50 50c14 14 14 26 0 40-14-14-14-26 0-40z"/><path d="M30 30c14 14 26 14 40 0-14-14-26-14-40 0z"/>'
+];
+
+const MAIN = [
+  {n:"Soldier of Godrick", loc:"Stranded Graveyard", r:"Limgrave", d:"Easy", req:false,
+   lore:"A lone Godrick soldier guarding the tutorial cave \u2014 the first true test, and often the first death, of every Tarnished.",
+   w:["Heavy attacks stagger it","Melee combos","Any weapon will do"], rw:["Runes (a modest first purse)"]},
+  {n:"Margit, the Fell Omen", loc:"Stormveil Castle", r:"Limgrave", d:"Medium", req:true,
+   lore:"A spectral omen barring the way to Stormveil. In truth he is Morgott in disguise, sworn to deny the unworthy.",
+   w:["Margit's Shackle (item)","Bleed buildup","Patient dodging of delayed swings"], rw:["Talisman Pouch","Runes"]},
+  {n:"Godrick the Grafted", loc:"Stormveil Castle", r:"Limgrave", d:"Medium", req:true,
+   lore:"A demigod who grafts the limbs of the fallen onto himself, clinging to a fading bloodline of the Golden Lineage.",
+   w:["Strike the grafted arm to stagger him","Bleed","Stay close in phase two"], rw:["Godrick's Great Rune","Remembrance of the Grafted"]},
+  {n:"Leonine Misbegotten", loc:"Castle Morne", r:"Limgrave", d:"Easy", req:false,
+   lore:"A beast-man cast out and abandoned, lashing out from the storm-battered shore of Castle Morne.",
+   w:["Frost","Jump attacks during recovery","Bleed"], rw:["Grafted Blade Greatsword","Runes"]},
+  {n:"Crucible Knight", loc:"Stormhill Evergaol", r:"Limgrave", d:"Medium", req:false,
+   lore:"A knight wielding the ancient powers of the Crucible, the primordial form of the Erdtree's life.",
+   w:["Punish the tail-sweep recovery","Guard counters","Raise a shield for combos"], rw:["Aspects of the Crucible: Tail","Runes"]},
+
+  {n:"Red Wolf of Radagon", loc:"Raya Lucaria Academy", r:"Liurnia of the Lakes", d:"Easy", req:false,
+   lore:"A spectral wolf bound to the Carian royalty, conjuring blades of magic to defend the academy halls.",
+   w:["Close the gap to deny ranged magic","Bleed","Roll through sword volleys"], rw:["Memory Stone","Runes"]},
+  {n:"Royal Knight Loretta", loc:"Caria Manor", r:"Liurnia of the Lakes", d:"Medium", req:false,
+   lore:"The guardian knight of House Caria, conjuring a great bow of moonlight to defend Ranni's ancestral manor.",
+   w:["Close range to stop the bow","Frost","Punish lance thrusts"], rw:["Loretta's Greatbow","Runes"]},
+  {n:"Rennala, Queen of the Full Moon", loc:"Raya Lucaria Academy", r:"Liurnia of the Lakes", d:"Medium", req:true,
+   lore:"Head of the Carian royal family and master of the full moon's sorcery, lost to grief after Radagon left her.",
+   w:["Strike the glowing students in phase one","Bleed","Burst her down quickly in phase two"], rw:["Great Rune of the Unborn","Remembrance of the Full Moon Queen"]},
+
+  {n:"Starscourge Radahn", loc:"Caelid (Wailing Dunes)", r:"Caelid", d:"Hard", req:true,
+   lore:"Mightiest of Radagon's children, a colossus of gravity magic who halted the very stars to spare his beloved steed.",
+   w:["Summon the NPC spirits at the festival","Scarlet Rot","Bloodhound's Step to reposition"], rw:["Radahn's Great Rune","Remembrance of the Starscourge"]},
+  {n:"Mohg, Lord of Blood", loc:"Mohgwyn Palace", r:"Caelid", d:"Hard", req:false,
+   lore:"Lord of the Mohgwyn Dynasty, who steals away Miquella and bathes his cocoon in accursed blood.",
+   w:["Purifying Crystal Tear nullifies his Nihil","Fire","Heal through the bleed nova"], rw:["Mohg's Great Rune","Remembrance of the Blood Lord"]},
+
+  {n:"Elemer of the Briar", loc:"Shaded Castle", r:"Altus Plateau", d:"Medium", req:false,
+   lore:"A bell-bearing hunter consumed by the briar, dragging his cursed blade across the ruined Shaded Castle.",
+   w:["Punish long pauses after teleports","Bleed","Stay mobile"], rw:["Marais Executioner's Sword","Runes"]},
+  {n:"Godskin Noble", loc:"Volcano Manor", r:"Altus Plateau", d:"Medium", req:false,
+   lore:"An Apostle of the Godskins, gluttonous and grotesque, who rolls its swollen body to crush the unwary.",
+   w:["Black Flame stops its regeneration","Stagger with charged R2s","Dodge the roll inward"], rw:["Noble's Slender Sword","Runes"]},
+  {n:"Rykard, Lord of Blasphemy", loc:"Mt. Gelmir (Volcano Manor)", r:"Altus Plateau", d:"Medium", req:true,
+   lore:"Once a Carian demigod, now a serpent-devouring blasphemer who seeks to consume the gods themselves.",
+   w:["The Serpent-Hunter spear is near-mandatory","Aim for the open mouth","Use the rooftop pillars"], rw:["Rykard's Great Rune","Remembrance of the Blasphemous"]},
+  {n:"Morgott, the Omen King", loc:"Leyndell, Royal Capital", r:"Altus Plateau", d:"Hard", req:true,
+   lore:"The shunned Omen prince who, despite his curse, became the last loyal defender of the capital and the Erdtree.",
+   w:["Punish the end of his long sword combos","Bleed","Dodge into his cursed-sword conjures"], rw:["Morgott's Great Rune","Remembrance of the Omen King"]},
+  {n:"Godfrey, First Elden Lord (Golden Shade)", loc:"Leyndell, Royal Capital", r:"Altus Plateau", d:"Hard", req:true,
+   lore:"A golden echo of the first Elden Lord, set to guard the path to the Erdtree with the strength of legend.",
+   w:["Sidestep the stomp shockwaves","Punish the leap-slam","Heavy poise damage"], rw:["Runes (a substantial purse)"]},
+
+  {n:"Astel, Naturalborn of the Void", loc:"Lake of Rot", r:"Eternal Cities", d:"Hard", req:true,
+   lore:"A fallen star-beast from beyond the world, whose arrival shattered the Eternal City of the Nox.",
+   w:["Stay under it to avoid the void grab","Stagger with jump attacks","Frost"], rw:["Remembrance of the Naturalborn","Runes"]},
+  {n:"Regal Ancestor Spirit", loc:"Nokron / Siofra River", r:"Eternal Cities", d:"Medium", req:false,
+   lore:"A radiant antlered spirit, revered by the people of the underground rivers as a great ancestral god.",
+   w:["Holy resistance helps","Stay near its legs","Aspects of the Crucible work well"], rw:["Remembrance of the Regal Ancestor","Runes"]},
+  {n:"Lichdragon Fortissax", loc:"Deeproot Depths", r:"Eternal Cities", d:"Hard", req:false,
+   lore:"An ancient dragon-friend of Godwyn, fighting within a dream to hold the prince's Death-rot at bay.",
+   w:["Lightning resistance","Stay between its legs","Punish the red-lightning windups"], rw:["Remembrance of the Lichdragon","Runes"]},
+
+  {n:"Fire Giant", loc:"Mountaintops of the Giants", r:"Mountaintops", d:"Hard", req:true,
+   lore:"The last of the Fire Giants, kept alive to tend the Forge and the flame meant to burn the Erdtree.",
+   w:["Attack the foot/eye-wound in phase one","Stay under it","Lightning"], rw:["Remembrance of the Fire Giant","Runes"]},
+  {n:"Commander Niall", loc:"Castle Sol", r:"Mountaintops", d:"Hard", req:false,
+   lore:"A one-legged commander of unbroken will who summons two spectral knights atop Castle Sol.",
+   w:["Kill the two summons first","Bleed","Stagger him while alone"], rw:["Veteran's Prosthesis","Runes"]},
+
+  {n:"Maliketh, the Black Blade", loc:"Crumbling Farum Azula", r:"Crumbling Farum Azula", d:"Hard", req:true,
+   lore:"The shadowbound Black Blade of Marika and keeper of Destined Death, sworn to seal it away forever.",
+   w:["Keep close to read his leaps","Maximize HP for the Black Blade DoT","Bloodhound's Step"], rw:["Remembrance of the Black Blade","Runes"]},
+  {n:"Dragonlord Placidusax", loc:"Crumbling Farum Azula", r:"Crumbling Farum Azula", d:"Hard", req:false,
+   lore:"An Elden Lord from an age before the Erdtree, a two-headed dragon adrift outside the flow of time.",
+   w:["Run perpendicular to the breath beams","Stay under the body","Lightning resist"], rw:["Remembrance of the Dragonlord","Runes"]},
+
+  {n:"Loretta, Knight of the Haligtree", loc:"Haligtree", r:"Haligtree", d:"Medium", req:false,
+   lore:"Bound in death to guard Miquella's hidden Haligtree, conjuring spectral bows and lances once more.",
+   w:["Close range to deny the bow","Frost","Punish the lance-thrust recovery"], rw:["Loretta's Mastery","Runes"]},
+  {n:"Malenia, Blade of Miquella", loc:"Elphael, Brace of the Haligtree", r:"Haligtree", d:"Extreme", req:false,
+   lore:"Undefeated even by Radahn, the rot-blighted blade of Miquella; every blow she lands restores her own life.",
+   w:["Stagger to interrupt Waterfowl Dance","Scarlet Rot can outpace her healing","Frost slows her"], rw:["Great Rune of the Unborn","Remembrance of the Rot Goddess"]},
+
+  {n:"Radagon & the Elden Beast", loc:"Erdtree", r:"Crumbling Farum Azula", d:"Hard", req:true,
+   lore:"The Golden Order made flesh \u2014 Radagon's hammer of light, then the celestial Elden Beast, final wardens of the Erdtree.",
+   w:["Stay glued to the Elden Beast to dodge its rings","Holy resist","Stagger Radagon to open a window"], rw:["The Elden Ring \u2014 an ending of the game"]}
+];
+
+const DLC = [
+  {n:"Divine Beast Dancing Lion", loc:"Belurat, Tower Settlement", r:"Gravesite Plain", d:"Hard", req:false,
+   lore:"A storm-wreathed beast piloted by two dancers, shifting between wind, frost, and lightning in a furious dance.",
+   w:["Track the element it is channelling","Stay at its flank","Lightning resist"], rw:["Remembrance of the Dancing Lion"]},
+  {n:"Rellana, Twin Moon Knight", loc:"Castle Ensis", r:"Gravesite Plain", d:"Hard", req:false,
+   lore:"Carian sword-master and sister to Rennala, wielding twin blades of moon and flame at the realm's threshold.",
+   w:["Punish after her twin-moon set-up","Stay aggressive","Swap magic/fire resist"], rw:["Remembrance of the Twin Moon Knight"]},
+  {n:"Messmer the Impaler", loc:"Shadow Keep", r:"Shadow Keep", d:"Extreme", req:true,
+   lore:"Marika's sealed-away son, bearer of a forbidden flame and a writhing serpent, hidden from all of history.",
+   w:["Fire resist is essential","Read the serpent's emergence","Heavy poise damage"], rw:["Remembrance of the Impaler"]},
+  {n:"Scadutree Avatar", loc:"Scadu Altus", r:"Scadu Altus", d:"Hard", req:false,
+   lore:"A guardian spirit of the shadow tree, echoing the Erdtree Avatars of old beneath a darker canopy.",
+   w:["Holy resist","Punish the bouncing-slam recovery","Stay close"], rw:["Aspects of the Crucible (shadow)"]},
+  {n:"Commander Gaius", loc:"Shadow Keep", r:"Shadow Keep", d:"Hard", req:false,
+   lore:"A boar-riding commander of Messmer's host, charging with reckless, ground-shaking force.",
+   w:["Dodge into the charge, not away","Punish the boar's stumble","Stay to its side"], rw:["Path to the Saint of the Bud"]},
+  {n:"Putrescent Knight", loc:"Stone Coffin Fissure", r:"Scadu Altus", d:"Hard", req:false,
+   lore:"A skeletal rider mounted on a steed of putrid flame, haunting the depths of the Stone Coffin Fissure.",
+   w:["Frost resist","Punish after the spinning charge","Stay mobile"], rw:["Remembrance of the Wild Boar Rider"]},
+  {n:"Romina, Saint of the Bud", loc:"Church of the Bud", r:"Scadu Altus", d:"Hard", req:false,
+   lore:"A scorpion-bodied saint cradling the bud of rot, the first vessel touched by Miquella's discarded affliction.",
+   w:["Scarlet Rot immunity helps","Punish the tail-stab","Stay under her body"], rw:["Remembrance of the Saint of the Bud"]},
+  {n:"Midra, Lord of Frenzied Flame", loc:"Midra's Manse", r:"Abyssal Woods", d:"Hard", req:false,
+   lore:"A scholar consumed by the Frenzied Flame deep in the abyssal woods, now a herald of maddening fire.",
+   w:["Madness resist","Fire resist","Punish the end of the long flame combos"], rw:["Remembrance of the Lord of Frenzied Flame"]},
+  {n:"Bayle the Dread", loc:"Jagged Peak", r:"Jagged Peak", d:"Extreme", req:false,
+   lore:"The most feared dragon in all of legend, scarred and vengeful, dreaded even by the ancient dragon gods.",
+   w:["Use Igon's summon and his spear","Lightning/fire resist","Stay under the body"], rw:["Remembrance of the Dread Dragon"]},
+  {n:"Promised Consort Radahn", loc:"Enir-Ilim", r:"Enir-Ilim", d:"Extreme", req:true,
+   lore:"Radahn reborn as Miquella's promised consort, his gravity might fused with blinding holy light \u2014 the shadow's final trial.",
+   w:["Stay glued to him in phase two","Use positioning to lessen the light blind","Maximize Scadutree blessing"], rw:["Remembrance of a God and a Lord \u2014 DLC ending"]}
+];
+
+let mode = "main";
+const defeated = new Set();
+const $ = s => document.querySelector(s);
+const data = () => mode === "main" ? MAIN : DLC;
+
+function artHTML(b, h){
+  const t = THEME[b.r] || THEME["Limgrave"];
+  const sig = SIGILS[t.i % SIGILS.length];
+  const reqIcon = b.req ? '<div class="req" title="Required to reach an ending"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c2 4-1 5-1 8a4 4 0 008 0c0-5-4-7-4-11-3 1-3 4-3 4M6 13a4 4 0 008 0"/></svg></div>' : "";
+  return '<div class="art" style="height:'+h+'px;--g1:'+t.g1+';--g2:'+t.g2+'">'
+    + '<div class="glow"></div>'
+    + '<svg class="sigil" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.4">'+sig+'</svg>'
+    + '<div class="initial">'+b.n.charAt(0)+'</div>'
+    + '<div class="grain" style="background:url(#grain)"></div>'
+    + reqIcon + '</div>';
+}
+function locSvg(){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.7-7-12a7 7 0 0114 0c0 5.3-7 12-7 12z"/><circle cx="12" cy="9" r="2.2"/></svg>';}
+
+function cardHTML(b){
+  const done = defeated.has(b.n);
+  return '<article class="card '+(done?'done':'')+'" data-name="'+b.n+'">'
+    + '<div class="done-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>'
+    + artHTML(b,150)
+    + '<div class="body"><h3>'+b.n+'</h3>'
+    + '<div class="meta"><span class="loc">'+locSvg()+b.loc+'</span>'
+    + '<span class="tag '+b.d.toLowerCase()+'">'+b.d+'</span></div></div>'
+    + '<button class="view">View Boss <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>'
+    + '</article>';
+}
+
+function render(){
+  const q = $("#q").value.trim().toLowerCase();
+  const reg = $("#fRegion").value;
+  const diff = $("#fDiff").value;
+  const list = data().filter(b =>
+    (!q || b.n.toLowerCase().includes(q) || b.loc.toLowerCase().includes(q)) &&
+    (!reg || b.r === reg) &&
+    (!diff || b.d === diff));
+  const g = $("#grid");
+  g.innerHTML = list.length ? list.map(cardHTML).join("")
+    : '<div class="empty">No bosses match your search. The path ahead is clear, Tarnished.</div>';
+}
+
+function buildRegionOptions(){
+  const sel = $("#fRegion");
+  const regions = [...new Set(data().map(b=>b.r))];
+  sel.innerHTML = '<option value="">All Regions</option>' + regions.map(r=>'<option value="'+r+'">'+r+'</option>').join("");
+}
+
+function updateStats(){
+  $("#sBosses").textContent = data().length;
+  $("#sRegions").textContent = new Set(data().map(b=>b.r)).size;
+  $("#sDefeated").textContent = data().filter(b=>defeated.has(b.n)).length;
+  const badge = $("#navBadge");
+  badge.textContent = defeated.size;
+  badge.classList.toggle("show", defeated.size>0);
+}
+
+function bossOfDay(){
+  const day = Math.floor(Date.now()/86400000);
+  const b = MAIN[day % MAIN.length];
+  const optional = b.req ? "Required" : "Optional";
+  $("#botd").innerHTML =
+    '<div class="cap">BOSS OF THE DAY</div>'
+    + '<div class="capline flourish"><span class="dot"></span></div>'
+    + artHTML(b,240)
+    + '<div class="info"><h3>'+b.n+'</h3>'
+    + '<div class="row"><span class="star">&#10022;</span><span class="dlabel" style="color:var(--'+b.d.toLowerCase()+')">'+optional+' &middot; '+b.d+' Difficulty</span></div></div>'
+    + '<button class="reveal" data-name="'+b.n+'" data-src="main">View Lore &amp; Strategy</button>';
+}
+
+function openBoss(name, src){
+  const arr = src==="dlc"?DLC:(src==="main"?MAIN:data());
+  const b = arr.find(x=>x.n===name) || data().find(x=>x.n===name) || MAIN.find(x=>x.n===name) || DLC.find(x=>x.n===name);
+  if(!b) return;
+  const done = defeated.has(b.n);
+  $("#modalContent").innerHTML =
+    '<div class="mhead">'+artHTML(b,200)
+    + '<div class="titlebar"><h3>'+b.n+'</h3>'
+    + '<div class="sub"><span>'+locSvg()+b.loc+'</span><span>&#9670; '+b.r+'</span>'
+    + (b.req?'<span style="color:var(--gold)">&#10022; Required to reach an ending</span>':'<span>&#10022; Optional</span>')
+    + '</div></div></div>'
+    + '<div class="mbody"><p class="lore">'+b.lore+'</p>'
+    + '<div class="msect"><div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 3.5l6 6M3 21l4-1 13-13-3-3L4 17z"/></svg>Weaknesses &amp; Strategy</div>'
+    + '<div class="chips">'+b.w.map(x=>'<span class="chip">'+x+'</span>').join("")+'</div></div>'
+    + '<div class="msect"><div class="h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l3 6 6 1-4.5 4 1 6L12 17l-5.5 3 1-6L4 10l6-1z"/></svg>Rewards</div>'
+    + '<ul class="rewards">'+b.rw.map(x=>'<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 6"/></svg>'+x+'</li>').join("")+'</ul></div>'
+    + '<div class="mfoot"><button class="mark-btn '+(done?'is-done':'')+'" id="markBtn">'
+    + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>'
+    + (done?'Defeated':'Mark as Defeated')+'</button>'
+    + '<span class="diffpill tag '+b.d.toLowerCase()+'">'+b.d+'</span></div></div>';
+  $("#markBtn").onclick = () => {
+    if(defeated.has(b.n)) defeated.delete(b.n); else defeated.add(b.n);
+    updateStats(); render(); openBoss(b.n, src);
+  };
+  $("#overlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeModal(){ $("#overlay").classList.remove("open"); document.body.style.overflow=""; }
+
+$("#q").addEventListener("input", render);
+$("#fRegion").addEventListener("change", render);
+$("#fDiff").addEventListener("change", render);
+
+$("#switch").addEventListener("click", () => {
+  mode = mode==="main" ? "dlc" : "main";
+  $("#switch").dataset.on = mode;
+  $("#lblMain").className = "tlabel " + (mode==="main"?"on":"off");
+  $("#lblDlc").className  = "tlabel " + (mode==="dlc"?"on":"off");
+  buildRegionOptions();
+  $("#fRegion").value = "";
+  updateStats(); render();
+});
+
+$("#grid").addEventListener("click", e => {
+  const card = e.target.closest(".card");
+  if(card) openBoss(card.dataset.name, mode);
+});
+$("#botd").addEventListener("click", e => {
+  const btn = e.target.closest("[data-name]");
+  if(btn) openBoss(btn.dataset.name, btn.dataset.src);
+});
+$("#mclose").addEventListener("click", closeModal);
+$("#overlay").addEventListener("click", e => { if(e.target.id==="overlay") closeModal(); });
+document.addEventListener("keydown", e => { if(e.key==="Escape") closeModal(); });
+
+$("#menu").addEventListener("click", e => {
+  const btn = e.target.closest("button"); if(!btn) return;
+  [...$("#menu").children].forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  const map = {top:"top", grid:"grid", regions:"regions", progress:"progress"};
+  const el = document.getElementById(map[btn.dataset.go]);
+  if(el) el.scrollIntoView({behavior:"smooth", block: btn.dataset.go==="progress"?"center":"start"});
+});
+
+buildRegionOptions();
+render();
+updateStats();
+bossOfDay();
+</script>
+</body>
+</html>

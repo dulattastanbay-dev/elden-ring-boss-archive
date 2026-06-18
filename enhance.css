@@ -1,0 +1,216 @@
+/* ===== Elden Ring Boss Archive — enhance.css ===== */
+/* Styles for ambient embers, reveals, new controls, sound/help, easter eggs. */
+
+/* --- Ambient embers canvas --- */
+#ember-canvas{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
+
+/* --- Hero call-to-action row --- */
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;
+  font-family:var(--display);font-weight:600;letter-spacing:.1em;font-size:14px;color:var(--gold);
+  background:linear-gradient(180deg,rgba(201,164,92,.10),rgba(201,164,92,.03));
+  border:1px solid var(--line);border-radius:3px;
+  transition:transform .2s,border-color .2s,color .2s,background .2s}
+.btn-secondary:hover{transform:translateY(-2px);border-color:var(--gold);color:var(--gold-bright);
+  background:linear-gradient(180deg,rgba(201,164,92,.2),rgba(201,164,92,.06))}
+.btn-secondary svg{width:17px;height:17px}
+
+/* --- Completion meter (hero) --- */
+.clear-meter{margin-top:16px;width:min(100%,560px)}
+.clear-meter .cm-bar{height:8px;border:1px solid var(--line);border-radius:6px;
+  background:rgba(8,6,3,.6);overflow:hidden}
+.clear-meter .cm-fill{display:block;height:100%;width:0;border-radius:6px;
+  background:linear-gradient(90deg,#a07d35,#e6cd8e);
+  box-shadow:0 0 14px rgba(201,164,92,.6);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.clear-meter .cm-label{margin-top:8px;font-family:var(--display);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-dim)}
+.clear-meter .cm-label #cmPct{color:var(--gold-bright)}
+
+/* --- Header utility buttons (sound / help) --- */
+.menu-util{position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;
+  padding:8px 14px;color:var(--ink-dim);font-family:var(--display);font-size:13px;letter-spacing:.12em;
+  transition:color .25s}
+.menu-util svg{width:20px;height:20px;opacity:.8;transition:opacity .25s}
+.menu-util:hover,.menu-util.on{color:var(--gold-bright)}
+.menu-util:hover svg,.menu-util.on svg{opacity:1}
+#soundToggle{margin-left:6px;border-left:1px solid var(--line-soft)}
+
+/* --- Scroll reveals --- */
+.rv{opacity:0;transform:translateY(18px);
+  transition:opacity .6s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+.rv.rv-in{opacity:1;transform:none}
+
+/* --- Hero rotating gallery --- */
+.hero-art{height:430px}
+@media (max-width:900px){ .hero-art{height:330px} }
+.hero-gallery{position:absolute;inset:0;z-index:1}
+.hg-slide{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;border:0;background:none;
+  overflow:hidden;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity 1.1s ease,visibility 1.1s;cursor:var(--cursor),pointer}
+.hg-slide.is-active{opacity:1;visibility:visible;pointer-events:auto}
+.hg-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;
+  filter:saturate(.97) contrast(1.05) brightness(.9);transform:scale(1.04)}
+.hg-slide.is-active img{animation:heroKen 6s ease-out forwards}
+@keyframes heroKen{from{transform:scale(1.04)}to{transform:scale(1.13)}}
+.hero-art .vig{pointer-events:none}
+.hg-caption{position:absolute;left:0;right:0;bottom:0;z-index:3;pointer-events:none;
+  padding:18px 20px 16px;display:flex;flex-direction:column;gap:3px;
+  background:linear-gradient(0deg,rgba(8,6,3,.94),rgba(8,6,3,.4) 55%,transparent)}
+.hg-kicker{font-family:var(--display);letter-spacing:.28em;text-transform:uppercase;font-size:10px;color:var(--gold-dim)}
+.hg-name{font-family:var(--display);font-weight:600;font-size:clamp(17px,2.2vw,23px);color:#f2e7cd;
+  line-height:1.15;text-shadow:0 2px 14px rgba(0,0,0,.85)}
+.hg-cta{font-family:var(--display);font-size:11px;letter-spacing:.12em;color:var(--gold);
+  opacity:0;transform:translateY(4px);transition:opacity .25s ease,transform .25s ease;margin-top:5px}
+.hero-art:hover .hg-cta{opacity:1;transform:none}
+.hg-dots{position:absolute;top:14px;left:14px;z-index:4;display:flex;gap:7px}
+.hg-dot{width:8px;height:8px;border-radius:50%;border:1px solid var(--gold-dim);background:transparent;
+  padding:0;cursor:var(--cursor),pointer;transition:background .2s,border-color .2s,box-shadow .2s,transform .2s}
+.hg-dot:hover{transform:scale(1.2);border-color:var(--gold)}
+.hg-dot.is-active{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px rgba(201,164,92,.7)}
+
+/* --- Daily Challenge countdown --- */
+.botd-timer{margin-top:16px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.botd-timer-label{font-family:var(--display);font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-dim)}
+.botd-timer-row{display:inline-flex;align-items:center;gap:9px;
+  padding:7px 16px;border:1px solid var(--line);border-radius:5px;
+  background:linear-gradient(180deg,rgba(201,164,92,.07),rgba(201,164,92,.02))}
+.botd-timer-row svg{width:15px;height:15px;color:var(--gold-dim);flex:none}
+.botd-countdown{font-family:var(--display);font-weight:700;font-size:21px;letter-spacing:.06em;
+  color:var(--gold-bright);font-variant-numeric:tabular-nums;
+  text-shadow:0 0 18px rgba(201,164,92,.35)}
+
+/* --- Daily Challenge defeated state --- */
+.botd-art-wrap{position:relative}
+.botd.is-done .art{filter:grayscale(.45) brightness(.5)}
+.botd-stamp{position:absolute;inset:14px;z-index:3;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+.botd-stamp svg{width:48px;height:48px;color:var(--gold-bright);filter:drop-shadow(0 2px 8px #000)}
+.botd-stamp span{font-family:var(--display);font-weight:700;letter-spacing:.3em;text-transform:uppercase;
+  font-size:18px;color:var(--gold-bright);text-shadow:0 2px 10px #000;
+  border:2px solid var(--gold-bright);border-radius:4px;padding:6px 16px;
+  background:rgba(8,6,3,.45);transform:rotate(-7deg)}
+.botd.is-done .botd-countdown{color:var(--ink-dim);text-shadow:none}
+
+/* --- Map calibration chip (Alt+click) --- */
+#mapCalChip{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(14px);z-index:130;
+  padding:9px 16px;border:1px solid var(--gold);border-radius:5px;
+  background:linear-gradient(180deg,rgba(26,19,11,.97),rgba(16,11,6,.97));
+  color:var(--gold-bright);font-family:var(--display);letter-spacing:.08em;font-size:13px;
+  font-variant-numeric:tabular-nums;box-shadow:0 16px 40px -18px #000;
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease,visibility .25s}
+#mapCalChip.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+
+/* --- Grace flash (crest easter egg) --- */
+.grace-flash::after{content:"";position:fixed;inset:0;z-index:115;pointer-events:none;
+  background:radial-gradient(circle at 50% 28%,rgba(232,207,148,.28),transparent 60%);
+  animation:graceFade 1.4s ease forwards}
+@keyframes graceFade{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+
+/* --- YOU DIED screen (Konami easter egg) --- */
+.you-died{position:fixed;inset:0;z-index:120;display:grid;place-items:center;
+  background:rgba(0,0,0,0);pointer-events:none;opacity:0;
+  transition:opacity .8s ease,background .8s ease}
+.you-died.show{opacity:1;background:rgba(0,0,0,.82)}
+.you-died .yd-text{font-family:var(--serif);font-style:italic;font-weight:600;letter-spacing:.06em;
+  font-size:clamp(44px,9vw,120px);color:#9a1b16;
+  text-shadow:0 0 30px rgba(120,10,8,.7),0 4px 18px rgba(0,0,0,.85);
+  transform:scale(1.12);opacity:.97;
+  transition:transform 2.2s ease,color .8s ease,font-size .6s ease,text-shadow .8s ease}
+.you-died.show .yd-text{transform:scale(1)}
+.you-died .yd-text.yd-rise{color:var(--gold-bright);font-size:clamp(26px,4.5vw,54px);
+  text-shadow:0 0 30px rgba(201,164,92,.65)}
+
+/* --- GOD SLAIN banner (crest easter egg) --- */
+.god-slain{position:fixed;inset:0;z-index:120;display:grid;place-items:center;pointer-events:none;
+  background:rgba(2,2,1,0);opacity:0;transition:opacity .7s ease,background .7s ease}
+.god-slain.show{opacity:1;background:rgba(2,2,1,.46)}
+.god-slain::before{content:"";position:absolute;left:0;right:0;top:50%;height:230px;
+  transform:translateY(-50%) scaleX(.15);transform-origin:center;
+  background:linear-gradient(90deg,transparent,rgba(201,164,92,.06) 14%,rgba(232,207,148,.32) 50%,rgba(201,164,92,.06) 86%,transparent);
+  transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.god-slain.show::before{transform:translateY(-50%) scaleX(1)}
+.god-slain .gs-text{position:relative;font-family:var(--display);font-weight:600;letter-spacing:.22em;
+  font-size:clamp(34px,7vw,86px);color:var(--gold-bright);
+  text-shadow:0 0 34px rgba(232,207,148,.6),0 4px 20px rgba(0,0,0,.85);
+  opacity:0;transform:scale(1.08);
+  transition:opacity .8s ease,transform 1s cubic-bezier(.16,1,.3,1)}
+.god-slain.show .gs-text{opacity:1;transform:scale(1)}
+.god-slain .gs-text::after{content:"";position:absolute;left:50%;bottom:-18px;width:0;height:1px;
+  transform:translateX(-50%);background:linear-gradient(90deg,transparent,var(--gold-bright),transparent);
+  transition:width 1.1s cubic-bezier(.16,1,.3,1) .1s}
+.god-slain.show .gs-text::after{width:min(620px,80vw)}
+
+/* --- Help overlay --- */
+.help-overlay{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;
+  padding:24px;background:rgba(4,3,1,0);backdrop-filter:blur(0);opacity:0;visibility:hidden;
+  transition:opacity .3s,visibility .3s,background .3s,backdrop-filter .3s}
+.help-overlay.open{opacity:1;visibility:visible;background:rgba(4,3,1,.7);backdrop-filter:blur(6px)}
+.help-panel{position:relative;width:min(420px,100%);
+  background:linear-gradient(180deg,#1a130b,#100b06);border:1px solid var(--line);border-radius:8px;
+  box-shadow:0 40px 90px -30px #000;padding:26px 26px 22px;
+  transform:translateY(16px) scale(.97);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.help-overlay.open .help-panel{transform:none}
+.help-close{position:absolute;top:10px;right:14px;font-size:26px;line-height:1;color:var(--gold);
+  background:none;border:none}
+.help-close:hover{color:var(--gold-bright)}
+.help-title{font-family:var(--display);letter-spacing:.2em;text-transform:uppercase;font-size:14px;
+  color:var(--gold);margin-bottom:16px}
+.help-list{list-style:none;display:grid;gap:10px;margin:0;padding:0}
+.help-list li{display:flex;align-items:center;gap:14px;color:var(--ink)}
+.help-list kbd{min-width:34px;text-align:center;padding:5px 8px;font-family:var(--display);font-size:13px;
+  color:var(--gold-bright);border:1px solid var(--line);border-radius:4px;background:rgba(201,164,92,.06)}
+.help-foot{margin-top:18px;padding-top:14px;border-top:1px solid var(--line-soft);
+  font-style:italic;color:var(--ink-faint);font-size:13px}
+.help-foot em{color:var(--ink-dim)}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion:reduce){
+  #ember-canvas{display:none}
+  .rv{opacity:1!important;transform:none!important}
+  .you-died .yd-text{transition:none}
+}
+
+/* ===== Mobile & tablet refinements ===== */
+.nav-toggle{display:none}
+
+/* Phones & small tablets: collapse the header nav into a hamburger drawer */
+@media (max-width:720px){
+  .nav{position:relative;flex-wrap:nowrap;gap:12px}
+  .brand{min-width:0}
+  .brand h1{white-space:nowrap}
+
+  .nav-toggle{display:grid;place-items:center;width:44px;height:44px;flex:none;
+    border:1px solid var(--line);border-radius:8px;color:var(--gold);
+    background:linear-gradient(180deg,rgba(201,164,92,.10),rgba(201,164,92,.03));
+    transition:border-color .2s,color .2s}
+  .nav-toggle:hover{border-color:var(--gold);color:var(--gold-bright)}
+  .nav-toggle svg{width:22px;height:22px}
+
+  nav.menu{position:absolute;top:calc(100% + 12px);right:0;left:0;z-index:60;
+    flex-direction:column;align-items:stretch;gap:4px;padding:8px;
+    background:linear-gradient(180deg,#16100a,#0d0905);
+    border:1px solid var(--line);border-radius:10px;box-shadow:0 30px 60px -24px #000;
+    opacity:0;visibility:hidden;transform:translateY(-10px);
+    transition:opacity .25s ease,transform .25s ease,visibility .25s}
+  .nav.nav-open nav.menu{opacity:1;visibility:visible;transform:none}
+
+  nav.menu button,nav.menu .menu-util{flex-direction:row;justify-content:flex-start;gap:14px;
+    width:100%;padding:13px 14px;border-radius:8px;letter-spacing:.1em}
+  nav.menu button span,nav.menu .menu-util span{display:inline}
+  nav.menu button svg,nav.menu .menu-util svg{width:20px;height:20px;opacity:1}
+  nav.menu button.active{background:rgba(201,164,92,.12);color:var(--gold-bright)}
+  nav.menu button.active::after{display:none}
+  nav.menu .badge{position:static;top:auto;right:auto;margin-left:auto;display:none}
+  nav.menu .badge.show{display:grid}
+  #soundToggle{margin-left:0;border-left:0;border-top:1px solid var(--line-soft);
+    margin-top:4px;padding-top:14px}
+}
+
+/* Phones: stack hero buttons full-width for easier tapping */
+@media (max-width:600px){
+  .hero-cta{flex-direction:column;align-items:stretch}
+  .hero-cta .btn-primary,.hero-cta .btn-secondary{width:100%;justify-content:center}
+  .clear-meter{width:100%}
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/png" href="assets/site-logo.png">
+<link rel="shortcut icon" type="image/png" href="assets/site-logo.png">
+<link rel="apple-touch-icon" href="assets/site-logo.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elden Ring — Boss Archive</title>
+<meta name="description" content="An interactive, unofficial fan archive of the bosses of the Lands Between — lore, weaknesses, rewards, difficulty ratings, an interactive map, a daily challenge, and progress tracking.">
+<meta name="theme-color" content="#0b0805">
+<!-- Open Graph / social preview. Replace USERNAME/REPO with your GitHub Pages address. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Elden Ring — Boss Archive">
+<meta property="og:description" content="Explore the bosses of the Lands Between: lore, weaknesses, rewards, an interactive map, and a daily challenge. (Unofficial fan project.)">
+<meta property="og:image" content="https://USERNAME.github.io/REPO/assets/og-image.jpg">
+<meta property="og:url" content="https://USERNAME.github.io/REPO/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Elden Ring — Boss Archive">
+<meta name="twitter:description" content="Explore the bosses of the Lands Between: lore, weaknesses, rewards, an interactive map, and a daily challenge. (Unofficial fan project.)">
+<meta name="twitter:image" content="https://USERNAME.github.io/REPO/assets/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="enhance.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter></svg>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <img class="crest" src="assets/site-logo.png" alt="Elden Ring Boss Archive logo">
+      <div>
+        <h1>ELDEN RING</h1>
+        <div class="sub">BOSS ARCHIVE</div>
+      </div>
+    </div>
+    <nav class="menu" id="menu">
+      <button data-go="top" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 8h-3v9h-4v-6h-4v6H6v-9H3z"/></svg><span>Home</span></button>
+      <button data-go="grid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 8a3 3 0 116 0c0 2-3 3-3 3s-3-1-3-3z"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/><circle cx="9" cy="9" r=".6" fill="currentColor"/><circle cx="15" cy="9" r=".6" fill="currentColor"/></svg><span>Bosses</span></button>
+      <button data-go="regions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6.7-7-12a7 7 0 0114 0c0 5.3-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span>Regions</span></button>
+      <button data-go="map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg><span>Map</span></button>
+      <button data-go="progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 01-12 0zM6 6H3v2a3 3 0 003 3M18 6h3v2a3 3 0 01-3 3"/></svg><span>Progress</span><span class="badge" id="navBadge">0</span></button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">THE LANDS BETWEEN</div>
+        <h2>Explore the Bosses<span class="accent">of the Lands Between</span></h2>
+        <p class="lede">Discover lore, weaknesses, rewards, and difficulty ratings.</p>
+        <div class="hero-cta">
+          <button class="btn-primary" data-go="grid">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 3.5l6 6M9.5 8.5l6 6M3 21l4-1 13-13-3-3L4 17z"/></svg>
+            Explore Bosses
+          </button>
+          <button class="btn-secondary" id="randomBoss" type="button" aria-label="Open a random boss">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.3" fill="currentColor"/><circle cx="16" cy="8" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="8" cy="16" r="1.3" fill="currentColor"/><circle cx="16" cy="16" r="1.3" fill="currentColor"/></svg>
+            Face a Random Foe
+          </button>
+        </div>
+        <aside class="stats" id="progress" aria-label="Archive progress">
+          <div class="stat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a7 7 0 00-7 7c0 3 2 5 2 7v2h10v-2c0-2 2-4 2-7a7 7 0 00-7-7z"/><circle cx="9.5" cy="10" r="1.2" fill="currentColor"/><circle cx="14.5" cy="10" r="1.2" fill="currentColor"/></svg></div>
+            <div><div class="lbl">Bosses</div><div class="num" id="sBosses">23</div></div>
+          </div>
+          <div class="stat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l4-2 4 2 4-2 4 2v12zM8 7V4M16 7V4M9 21v-5h6v5"/></svg></div>
+            <div><div class="lbl">Regions</div><div class="num" id="sRegions">8</div></div>
+          </div>
+          <div class="stat">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3c2 4-1 5-1 8a4 4 0 008 0c0-5-4-7-4-11-3 1-3 4-3 4M6 13a4 4 0 008 0"/></svg></div>
+            <div><div class="lbl">Defeated</div><div class="num" id="sDefeated">0</div></div>
+          </div>
+        </aside>
+        <div class="clear-meter" id="clearMeter" aria-label="Archive completion">
+          <div class="cm-bar"><span class="cm-fill" id="cmFill"></span></div>
+          <div class="cm-label"><span id="cmPct">0%</span> of the Lands cleansed</div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="scene"></div>
+        <svg class="silhouette" viewBox="0 0 200 200" fill="currentColor"><path d="M100 18c-9 0-14 7-14 16 0 6 3 11 3 16-8 4-22 7-30 18-5 7-3 16 4 12 6-4 12-9 18-10-6 9-14 16-18 28-3 10 4 14 9 6 6-10 12-19 20-25-3 12-9 22-9 35 0 8 6 10 9 3 4-11 6-23 8-35 2 12 4 24 8 35 3 7 9 5 9-3 0-13-6-23-9-35 8 6 14 15 20 25 5 8 12 4 9-6-4-12-12-19-18-28 6 1 12 6 18 10 7 4 9-5 4-12-8-11-22-14-30-18 0-5 3-10 3-16 0-9-5-16-14-16z"/></svg>
+        <div class="grain" style="background:url(#grain)"></div>
+        <div class="vig"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="controls" id="regions">
+    <div class="field search">
+      <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="q" type="text" placeholder="Search bosses..." autocomplete="off">
+    </div>
+    <div class="field sel">
+      <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.7-7-12a7 7 0 0114 0c0 5.3-7 12-7 12z"/><circle cx="12" cy="9" r="2.4"/></svg>
+      <select id="fRegion"><option value="">All Regions</option></select>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="field sel">
+      <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+      <select id="fDiff">
+        <option value="">All Difficulties</option>
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Hard">Hard</option>
+        <option value="Extreme">Extreme</option>
+      </select>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="field sel">
+      <svg class="lead" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h13M3 12h9M3 18h5M17 7v10M17 17l3-3M17 17l-3-3"/></svg>
+      <select id="fSort" aria-label="Sort bosses">
+        <option value="">Sort: Default</option>
+        <option value="name">Name (A–Z)</option>
+        <option value="diff-asc">Difficulty (Easy → Extreme)</option>
+        <option value="diff-desc">Difficulty (Extreme → Easy)</option>
+        <option value="region">Region</option>
+      </select>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="toggle">
+      <span class="tlabel on" id="lblMain">Main Game</span>
+      <button class="switch" id="switch" data-on="main" aria-label="Toggle Main Game and DLC"><span class="knob"></span></button>
+      <span class="tlabel off" id="lblDlc">DLC</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="grid" id="grid"></div>
+    <aside class="botd" id="botd"></aside>
+  </div>
+</div>
+
+
+<section class="map-section" id="map">
+  <div class="wrap">
+    <div class="map-head">
+      <div class="kicker">CARTOGRAPHY OF THE LANDS BETWEEN</div>
+      <h2>The Boss Map</h2>
+      <p>Major bosses, charted across the realm. Select a plane, then tap a marker to open its archive.</p>
+    </div>
+    <div class="map-tabs">
+      <button class="map-tab active" data-plane="surface"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/></svg>Boss Pins</button>
+      <button class="map-tab" data-plane="under"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 10c0-4 4-6 8-6s8 2 8 6c0 6-8 12-8 12S4 16 4 10z" opacity=".5"/><path d="M7 14c0-2 2-3 5-3s5 1 5 3"/></svg>Underground</button>
+      <button class="map-tab" data-plane="shadow" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a9 9 0 109 9c0-.5 0-1-.1-1.5A7 7 0 0112 4.6 7 7 0 0112 3z"/></svg>Land of Shadow</button>
+    </div>
+    <div class="map-frame">
+      <div class="map-tools" aria-label="Map zoom controls">
+        <button id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/></svg>
+        </button>
+        <input id="mapZoom" type="range" min="1" max="3.4" step="0.1" value="1" aria-label="Map zoom">
+        <button id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <button id="mapReset" type="button" aria-label="Reset map view" title="Reset map view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 4v6h6"/><path d="M20 20v-6h-6"/><path d="M20 9A8 8 0 006 5.5L4 8"/><path d="M4 15a8 8 0 0014 3.5l2-2.5"/></svg>
+        </button>
+      </div>
+      <div class="map-canvas" id="mapCanvas">
+        <div class="map-plane show" id="plane-surface"><svg class="terrain" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="sea" cx="50%" cy="42%" r="75%">
+      <stop offset="0%" stop-color="#0e1a22"/><stop offset="60%" stop-color="#0a1218"/><stop offset="100%" stop-color="#05080b"/>
+    </radialGradient>
+    <radialGradient id="erdtree" cx="50%" cy="44%" r="22%">
+      <stop offset="0%" stop-color="rgba(232,207,148,.55)"/><stop offset="55%" stop-color="rgba(201,164,92,.18)"/><stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b2415"/><stop offset="100%" stop-color="#171206"/>
+    </linearGradient>
+  </defs>
+  <rect width="1000" height="1000" fill="url(#sea)"/>
+  <g opacity="0.5" stroke="rgba(201,164,92,.10)" stroke-width="1">
+    <path d="M0 250H1000M0 500H1000M0 750H1000M250 0V1000M500 0V1000M750 0V1000"/>
+  </g>
+  <path d="M250 880C150 820 120 700 180 600 130 520 160 420 250 380 230 280 300 170 420 150 470 60 620 70 660 160 780 150 880 240 860 360 940 420 940 540 850 600 880 720 800 820 680 840 600 940 360 950 250 880Z"
+        fill="url(#land)" stroke="rgba(201,164,92,.30)" stroke-width="2"/>
+  <ellipse cx="430" cy="440" rx="240" ry="200" fill="url(#erdtree)"/>
+  <!-- Liurnia lakes (west) -->
+  <g fill="rgba(95,130,190,.18)" stroke="rgba(127,160,214,.30)" stroke-width="1.5">
+    <ellipse cx="190" cy="560" rx="70" ry="120"/><ellipse cx="230" cy="470" rx="46" ry="70"/>
+  </g>
+  <!-- Caelid scarlet (east) -->
+  <ellipse cx="790" cy="680" rx="120" ry="100" fill="rgba(180,70,60,.16)"/>
+  <!-- Mountaintops snow (NE) -->
+  <g fill="rgba(170,195,216,.14)" stroke="rgba(170,195,216,.22)" stroke-width="1.4">
+    <path d="M640 250l30-70 26 50 30-44 24 60-34 26-44-6z"/>
+    <path d="M700 150l24-44 22 40 26-30 16 44-40 18z"/>
+  </g>
+  <!-- Farum Azula shard (far E) -->
+  <path d="M880 470l40-60 30 40-18 56-44 6z" fill="rgba(120,100,150,.18)" stroke="rgba(179,160,208,.30)" stroke-width="1.4"/>
+  <!-- compass -->
+  <g transform="translate(110 880)" stroke="rgba(201,164,92,.5)" stroke-width="1.4" fill="none">
+    <circle r="34"/><path d="M0 -46V-34M0 34V46M-46 0H-34M34 0H46"/>
+    <path d="M0 -30L8 0 0 30 -8 0Z" fill="rgba(201,164,92,.35)" stroke="none"/>
+  </g>
+</svg><div class="markers"></div></div>
+        <div class="map-plane" id="plane-under"><svg class="terrain" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="cavA" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="rgba(95,95,180,.30)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+    <radialGradient id="cavB" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="rgba(120,150,120,.22)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+    <radialGradient id="cavC" cx="50%" cy="50%" r="60%"><stop offset="0%" stop-color="rgba(180,70,60,.22)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+  </defs>
+  <rect width="1000" height="1000" fill="#060507"/>
+  <!-- Ainsel / Lake of Rot (left) -->
+  <path d="M150 360c80-40 200-30 250 40 40 70 20 200-60 250-120 70-260 10-280-110-15-90 30-150 90-180Z"
+        fill="#0e0c10" stroke="rgba(159,160,224,.22)" stroke-width="2"/>
+  <ellipse cx="270" cy="520" rx="150" ry="150" fill="url(#cavA)"/>
+  <ellipse cx="300" cy="760" rx="80" ry="60" fill="url(#cavC)" opacity="0.8"/>
+  <!-- Deeproot Depths (top) -->
+  <path d="M520 120c120-30 230 30 240 130 8 90-60 170-170 180-130 12-230-60-220-170 6-80 70-140 150-170Z"
+        fill="#0d0c0e" stroke="rgba(120,150,120,.22)" stroke-width="2"/>
+  <ellipse cx="600" cy="290" rx="140" ry="130" fill="url(#cavB)"/>
+  <!-- Siofra / Nokron (right) -->
+  <path d="M640 600c90-50 220-30 270 60 40 80 10 200-90 240-120 50-250-10-270-130-12-80 30-140 90-170Z"
+        fill="#0e0c10" stroke="rgba(159,160,224,.22)" stroke-width="2"/>
+  <ellipse cx="760" cy="720" rx="150" ry="140" fill="url(#cavA)"/>
+  <g opacity="0.6" stroke="rgba(159,160,224,.10)" stroke-width="1"><path d="M0 500H1000M500 0V1000"/></g>
+</svg><div class="markers"></div></div>
+        <div class="map-plane" id="plane-shadow"><svg class="terrain" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="ssky" cx="50%" cy="35%" r="80%"><stop offset="0%" stop-color="#15110a"/><stop offset="100%" stop-color="#060503"/></radialGradient>
+    <radialGradient id="sglow" cx="50%" cy="30%" r="30%"><stop offset="0%" stop-color="rgba(190,150,90,.4)"/><stop offset="100%" stop-color="transparent"/></radialGradient>
+    <linearGradient id="sland" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#241d12"/><stop offset="100%" stop-color="#120d07"/></linearGradient>
+  </defs>
+  <rect width="1000" height="1000" fill="url(#ssky)"/>
+  <g opacity="0.45" stroke="rgba(201,164,92,.10)" stroke-width="1"><path d="M0 333H1000M0 666H1000M333 0V1000M666 0V1000"/></g>
+  <path d="M300 900C200 850 180 740 240 660 190 580 220 480 320 440 300 340 380 230 500 210 560 130 700 160 720 260 830 280 880 380 840 470 910 540 880 660 780 700 800 820 640 920 500 930 420 950 360 930 300 900Z"
+        fill="url(#sland)" stroke="rgba(190,150,90,.28)" stroke-width="2"/>
+  <ellipse cx="510" cy="300" rx="200" ry="160" fill="url(#sglow)"/>
+  <!-- Shadow Keep silhouette (center) -->
+  <g fill="rgba(0,0,0,.55)" stroke="rgba(190,150,90,.30)" stroke-width="1.5">
+    <rect x="470" y="250" width="80" height="120"/><rect x="450" y="300" width="120" height="70"/>
+    <path d="M470 250l40-34 40 34z"/>
+  </g>
+  <!-- Abyssal woods (deep south) -->
+  <g fill="rgba(60,80,60,.22)" stroke="rgba(110,140,110,.18)" stroke-width="1.2">
+    <ellipse cx="300" cy="880" rx="120" ry="70"/>
+  </g>
+  <!-- Jagged Peak (SE) -->
+  <g fill="rgba(120,130,160,.18)" stroke="rgba(166,179,207,.26)" stroke-width="1.4">
+    <path d="M740 760l44-90 34 70 30-50 26 80-60 30-58-10z"/>
+  </g>
+  <g transform="translate(110 880)" stroke="rgba(190,150,90,.5)" stroke-width="1.4" fill="none">
+    <circle r="32"/><path d="M0 -44V-32M0 32V44M-44 0H-32M32 0H44"/>
+    <path d="M0 -28L7 0 0 28 -7 0Z" fill="rgba(190,150,90,.35)" stroke="none"/>
+  </g>
+</svg><div class="markers"></div></div>
+      </div>
+    </div>
+    <div class="map-legend">
+      <span class="lg"><span class="sw" style="background:#4f6b46"></span>Easy</span>
+      <span class="lg"><span class="sw" style="background:#8a6b2e"></span>Medium</span>
+      <span class="lg"><span class="sw" style="background:#8c2b25"></span>Hard</span>
+      <span class="lg"><span class="sw" style="background:#5e3f86"></span>Extreme</span>
+      <span class="lg"><span class="sw" style="background:linear-gradient(180deg,#e6cd8e,#bf9847);border-color:#f0dca0"></span>Defeated</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="flourish"><span class="dot"></span>Unofficial fan project<span class="dot"></span></div>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" id="modal">
+    <button class="mclose" id="mclose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
+<script src="enhance.js" defer></script>
+</body>
+</html>
