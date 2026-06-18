@@ -24,7 +24,7 @@ An interactive, **unofficial fan-made** archive of the bosses of the Lands Betwe
 
 ## 🚀 View it
 
-**Live:** `https://USERNAME.github.io/REPO/` *(update after enabling GitHub Pages)*
+**Live:** `https://dulattastanbay-dev.github.io/elden-ring-boss-archive/` *(update after enabling GitHub Pages)*
 
 **Run locally** — it's a static site, so any of these work:
 
@@ -43,7 +43,7 @@ python -m http.server  # then visit http://localhost:8000
 1. Push this repo to GitHub.
 2. **Settings → Pages → Build and deployment → Source: Deploy from a branch**, pick `main` / `root`.
 3. Wait a minute, then open the published URL.
-4. Update the `USERNAME/REPO` placeholders in `index.html` (Open Graph tags) and this README so link previews work.
+4. If you fork this, update the Open Graph URLs in `index.html` and the live URL in this README to your own GitHub Pages address.
 
 ## 🗂️ Project structure
 
