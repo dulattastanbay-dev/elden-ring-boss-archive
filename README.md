@@ -2,7 +2,7 @@
 
 An interactive, **unofficial fan-made** archive of the bosses of the Lands Between. Browse lore, weaknesses, rewards and difficulty ratings, hunt bosses on an interactive map, take on a rotating daily challenge, and track which foes you've felled — all in a single static page, no build step required.
 
-![Elden Ring Boss Archive](assets/og-image.jpg)
+![Elden Ring Boss Archive — Starscourge Radahn](assets/bosses/starscourge-radahn.webp)
 
 > ⚔️ *Unofficial fan project. Not affiliated with or endorsed by FromSoftware or Bandai Namco.*
 
